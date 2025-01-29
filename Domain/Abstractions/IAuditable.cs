@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities.Abstractions;
+﻿namespace Domain.Abstractions;
 
 public interface IAuditable
 {

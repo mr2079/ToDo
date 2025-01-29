@@ -1,8 +1,8 @@
-﻿using Domain.Entities.Abstractions;
+﻿using Domain.Abstractions;
 
 namespace Domain.Entities;
 
-public class Task : EntityBase<Guid>
+public class Task : Entity<Guid>
 {
     public string Title { get; set; }
     public string Description { get; set; }

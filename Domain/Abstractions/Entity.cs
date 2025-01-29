@@ -1,6 +1,6 @@
-﻿namespace Domain.Entities.Abstractions;
+﻿namespace Domain.Abstractions;
 
-public abstract class EntityBase<TKey> : IEntity<TKey>, IAuditable, ISoftDeletable
+public abstract class Entity<TKey> : EntityBase<TKey>, IAuditable, ISoftDeletable
 {
     public TKey Id { get; set; }
     public DateTime CreatedAt { get; set; }
