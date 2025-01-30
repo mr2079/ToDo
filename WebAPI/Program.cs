@@ -9,9 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddInfrastructureServices(builder.Configuration)
     .AddApplicationServices(builder.Configuration)
-    .AddApiServices(builder.Host, builder.Configuration);
+    .AddApiServices(builder.Host);
 
 var app = builder.Build();
+
+app.UseExceptionHandler(_ => { });
 
 app.ApplyMigrations();
 

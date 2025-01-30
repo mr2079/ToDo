@@ -1,4 +1,6 @@
-﻿using Infrastructure.Data;
+﻿using Domain.Repositories.Base;
+using Infrastructure.Data;
+using Infrastructure.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
@@ -12,16 +14,17 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddDbContext<AppDbContext>(options =>
-        {
-            options.UseSqlServer(configuration.GetConnectionString("SqlServer"));
+        services.AddScoped<ISaveChangesInterceptor, AuditableInterceptor>();
 
-            IInterceptor[] interceptors = 
-            [
-                new AuditableInterceptor()
-            ];
+        services.AddDbContext<AppDbContext>((serviceProvider, options) =>
+        {
+            var interceptors = serviceProvider.GetServices<IInterceptor>();
             options.AddInterceptors(interceptors);
+
+            options.UseSqlServer(configuration.GetConnectionString("SqlServer"));
         });
+
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;
     }
