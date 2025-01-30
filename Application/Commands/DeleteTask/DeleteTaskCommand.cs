@@ -1,5 +1,4 @@
-﻿using Application.Commands.UpdateTask;
-using Application.Models;
+﻿using Application.Models;
 using Domain.Repositories.Base;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -9,25 +8,30 @@ namespace Application.Commands.DeleteTask;
 
 public class DeleteTaskCommand : IRequest<ApiResponse>
 {
+    public DeleteTaskCommand(Guid id)
+    {
+        Id = id;
+    }
+
     public Guid Id { get; set; }
 }
 
-public class UpdateTaskCommandHandler 
-    : IRequestHandler<UpdateTaskCommand, ApiResponse>
+public class DeleteTaskCommandHandler 
+    : IRequestHandler<DeleteTaskCommand, ApiResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly ILogger<UpdateTaskCommandHandler> _logger;
+    private readonly ILogger<DeleteTaskCommandHandler> _logger;
 
-    public UpdateTaskCommandHandler(
+    public DeleteTaskCommandHandler(
         IUnitOfWork unitOfWork,
-        ILogger<UpdateTaskCommandHandler> logger)
+        ILogger<DeleteTaskCommandHandler> logger)
     {
         _unitOfWork = unitOfWork;
         _logger = logger;
     }
 
     public async Task<ApiResponse> Handle(
-        UpdateTaskCommand request,
+        DeleteTaskCommand request,
         CancellationToken cancellationToken)
     {
         List<string>? messages;

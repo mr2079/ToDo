@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using Domain.Abstractions;
+﻿using Domain.Abstractions;
 
 namespace Domain.Repositories.Base;
 

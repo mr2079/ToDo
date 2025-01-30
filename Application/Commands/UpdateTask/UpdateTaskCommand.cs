@@ -9,6 +9,11 @@ namespace Application.Commands.UpdateTask;
 
 public class UpdateTaskCommand : IRequest<ApiResponse>
 {
+    public UpdateTaskCommand(Guid id)
+    {
+        Id = id;
+    }
+
     public Guid Id { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
