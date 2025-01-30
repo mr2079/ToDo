@@ -14,13 +14,13 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddScoped<ISaveChangesInterceptor, AuditableInterceptor>();
-
-        services.AddDbContext<AppDbContext>((serviceProvider, options) =>
+        services.AddDbContext<AppDbContext>(options =>
         {
-            var interceptors = serviceProvider.GetServices<IInterceptor>();
+            IInterceptor[] interceptors =
+            [
+                new AuditableInterceptor()
+            ];
             options.AddInterceptors(interceptors);
-
             options.UseSqlServer(configuration.GetConnectionString("SqlServer"));
         });
 
