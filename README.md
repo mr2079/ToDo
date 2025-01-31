@@ -24,7 +24,7 @@ Before running the project, ensure you have the following installed:
    ```
 
 3. **Configure the database**
-   - Open `appsettings.json` and update the `ConnectionStrings.SqlServer` section with your database connection string.
+   - Open `appsettings.Development.json` and update the `ConnectionStrings.SqlServer` section with your database connection string.
 
 4. **Run the application**
    ```sh
