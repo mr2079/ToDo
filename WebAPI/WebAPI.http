@@ -1,6 +1,45 @@
-@WebAPI_HostAddress = http://localhost:5104
+@BaseAddress = http://localhost:5104
 
-GET {{WebAPI_HostAddress}}/weatherforecast/
+@TestId = b0f79511-26a6-47de-d226-08dd4211da1a
+
+###
+
+@TestQueryParams = isCompleted=false&startDate=2025-02-05
+
+GET {{BaseAddress}}/api/tasks?{{TestQueryParams}}
+Accept: application/json
+
+###
+
+GET {{BaseAddress}}/api/tasks/{{TestId}}
+Accept: application/json
+
+###
+
+POST {{BaseAddress}}/api/tasks
+Content-Type: application/json
+
+{
+  "title": "task-1",
+  "description": "task-1",
+  "dueDate": "2025-12-01T12:00:00"
+}
+
+###
+
+PUT {{BaseAddress}}/api/tasks/{{TestId}}
+Content-Type: application/json
+
+{
+  "title": "task-1",
+  "description": "task-1",
+  "isCompleted": true,
+  "dueDate": "2025-11-01T12:00:00"
+}
+
+###
+
+DELETE {{BaseAddress}}/api/tasks/{{TestId}}
 Accept: application/json
 
 ###
