@@ -2,6 +2,7 @@
 using Application.Commands.DeleteTask;
 using Application.Commands.UpdateTask;
 using Application.Queries.GetTask;
+using Application.Queries.GetTasks;
 using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +19,13 @@ public class TasksController : ControllerBase
     public TasksController(ISender sender)
     {
         _sender = sender;
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAsync([FromQuery] GetTasksQuery request)
+    {
+        var response = await _sender.Send(request);
+        return Ok(response);
     }
 
     [HttpGet("{id}")]

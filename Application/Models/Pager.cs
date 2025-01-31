@@ -14,6 +14,11 @@ public class PagedResult<TItem>
             pageSize = 10;
         }
 
+        if (pageSize > totalItems)
+        {
+            pageSize = totalItems;
+        }
+
         var totalPages = (int)Math.Ceiling((decimal)totalItems / (decimal)pageSize);
 
         if (currentPage < 1)

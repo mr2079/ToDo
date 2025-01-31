@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using WebAPI.Middlewares;
 
 namespace WebAPI;
@@ -15,6 +16,11 @@ public static class DependencyInjection
 
         host.UseSerilog((hostBuilderContext, loggerConfiguration) =>
             loggerConfiguration.ReadFrom.Configuration(hostBuilderContext.Configuration));
+
+        services.Configure<ApiBehaviorOptions>(options =>
+        {
+            options.SuppressModelStateInvalidFilter = true;
+        });
 
         services.AddExceptionHandler<ExceptionHandlingMiddleware>();
 

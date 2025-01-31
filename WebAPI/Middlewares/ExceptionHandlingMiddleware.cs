@@ -35,8 +35,7 @@ public class ExceptionHandlingMiddleware : IExceptionHandler
 
         if (exception is ValidationException validationException)
         {
-            messages = new (
-                validationException.Errors.Select(e => e.ErrorMessage));
+            messages = [..validationException.Errors.Select(e => e.ErrorMessage)];
         }
 
         var response = Response.IsFailure(messages);

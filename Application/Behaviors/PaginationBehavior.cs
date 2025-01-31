@@ -13,13 +13,13 @@ public class PaginationBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
     {
         if (request is SearchQuery searchQuery)
         {
-            if (searchQuery.Page.Number != null
+            if (searchQuery.Page.Number == null
                 || searchQuery.Page.Number < 1)
                 searchQuery.Page.Number = 1;
 
-            if (searchQuery.Page.Size != null
+            if (searchQuery.Page.Size == null
                 || searchQuery.Page.Size < 1)
-                searchQuery.Page.Size = 10;
+                searchQuery.Page.Size = int.MaxValue;
         }
 
         return await next();
