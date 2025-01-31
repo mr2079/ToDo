@@ -14,12 +14,17 @@ public class PagedResult<TItem>
             pageSize = 10;
         }
 
-        if (pageSize > totalItems)
+        if (totalItems > 0 && pageSize > totalItems)
         {
             pageSize = totalItems;
         }
 
         var totalPages = (int)Math.Ceiling((decimal)totalItems / (decimal)pageSize);
+
+        if (totalItems == 0)
+        {
+            pageSize = 0;
+        }
 
         if (currentPage < 1)
         {
