@@ -1,11 +1,21 @@
+using Application;
+using Infrastructure;
+using Serilog;
+using WebAPI;
+using WebAPI.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services
+    .AddInfrastructureServices(builder.Configuration)
+    .AddApplicationServices(builder.Configuration)
+    .AddApiServices(builder.Host);
 
 var app = builder.Build();
+
+app.UseExceptionHandler(_ => { });
+
+app.ApplyMigrations();
 
 if (app.Environment.IsDevelopment())
 {
@@ -13,7 +23,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseAuthorization();
+app.UseSerilogRequestLogging();
 
 app.MapControllers();
 
